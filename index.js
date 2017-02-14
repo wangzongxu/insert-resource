@@ -1,7 +1,9 @@
 /**
  * insert-reource
+ * https://github.com/wangzongxu/insert-resource
  */
   var fs = require('fs');
+  var chalk = require('chalk');
   var mkCss=function(arr,wrap){
     var str=wrap+'<!--insertCss /S-->\n';
     arr.forEach(function(path){
@@ -30,7 +32,7 @@ module.exports=function(config){
       return name.indexOf('.html') > 0
   })
   if(!filesNameAry.length){
-    console.log('Can not find html file!');
+    console.log(chalk.red('Can not find html file!'));
     return
   }
   filesNameAry.forEach(function(name) {
@@ -48,16 +50,16 @@ module.exports=function(config){
     var replaceReg=/<!--\s*{{\s*css\s*}}\s*-->/,
              hasCss=/<!--\s*insertCss\s*\/S-->(\s|\S)*<!--\s*insertCss\s*\/E\s*-->/;
     if(!replaceReg.test(filesObj[name]) && !hasCss.test(filesObj[name])){
-      console.log('Can not find <!--{{css}}--> in '+ name +'.html');
+      console.log(chalk.red('Can not find <!--{{css}}--> in '+ name +'.html'));
       return
     }
     var wrap='\n';
     if(hasCss.test(filesObj[name])){
       replaceReg=hasCss;
       wrap='';
-      console.log(name+' css is '+ 'replaced ;')
+      console.log(chalk.green(name+' css is '+ 'replaced ;'))
     }else{
-      console.log(name+' css is '+ 'inserted ;')
+      console.log(chalk.blue(name+' css is '+ 'inserted ;'))
     }
     var str=mkCss(commonCss.concat(baseCss),wrap);
     filesObj[name]=filesObj[name].replace(replaceReg,str);
@@ -68,16 +70,16 @@ module.exports=function(config){
     var replaceReg=/<!--\s*{{\s*script\s*}}\s*-->/,
              hasJs=/<!--\s*insertJs\s*\/S-->(\s|\S)*<!--\s*insertJs\s*\/E\s*-->/;
     if(!replaceReg.test(filesObj[name]) && !hasJs.test(filesObj[name])){
-      console.log('Can not find <!--{{script}}--> in '+ name +'.html');
+      console.log(chalk.red('Can not find <!--{{script}}--> in '+ name +'.html'));
       return
     }
     var wrap='\n';
     if(hasJs.test(filesObj[name])){
       replaceReg=hasJs;
       wrap='';
-      console.log(name+' js is '+ 'replaced ;')
+      console.log(chalk.green(name+' js is '+ 'replaced ;'))
     }else{
-      console.log(name+' js is '+ 'inserted ;')
+      console.log(chalk.blue(name+' js is '+ 'inserted ;'))
     }
     var str=mkJs(commonJs.concat(baseJs),wrap);
     filesObj[name]=filesObj[name].replace(replaceReg,str);
