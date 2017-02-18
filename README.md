@@ -9,13 +9,16 @@ $ npm install insert-resource --save-dev
 ```
 
 ## Usage
-html
+- html
 ```html
+//插入css
 <!-- {{css}} -->
+//插入js
 <!-- {{script}} -->
 ```
-js
+- js
 ```js
+//可以作为gulp任务执行或者单独使用node执行脚本
 var insert=require('insert-resource')
 insert({
   baseUrl:'./',//根路径，默认'./'
