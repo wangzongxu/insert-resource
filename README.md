@@ -48,4 +48,4 @@ insert({
 ```
 
 ## License:
-wzx
+MIT
